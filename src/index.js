@@ -21,7 +21,7 @@ import { alchemyProvider } from 'wagmi/providers/alchemy';
 const { chains, provider } = configureChains(
   [chain.polygon, chain.polygonMumbai],
   [
-    alchemyProvider({ apiKey: REACT_APP_ALCHEMY_ID })
+    alchemyProvider({ apiKey: "UuUIg4H93f-Bz5qs91SuBrro7TW3UShO" })
   ]
 );
 
