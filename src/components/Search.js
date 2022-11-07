@@ -7,7 +7,7 @@ import {
 import { useState } from 'react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { queryAddress, queryVerificationStatus, calculateReputation } from '../scripts/api.js';
-import { useEnsResolver } from 'wagmi';
+import { ethers }  from 'ethers';
 
 export default function Search({setStats, setVerified, setProfileView}) {
   const [value, setValue] = useState("");
@@ -27,17 +27,13 @@ export default function Search({setStats, setVerified, setProfileView}) {
     setProfileView(true);
   }
 
-  const ensResolver = useEnsResolver({
-    name: value,
-    chaidId: 1,
-    onSuccess(data) {
-      setResults(data);
-    },
-  });
-
   const submitForm = () => {
     if (!value.endsWith(".eth")) {
       setResults(value);
+    } else {
+      let provider = new ethers.providers.AlchemyProvider({ name: 'homestead', chainId: 1 }, 'UuUIg4H93f-Bz5qs91SuBrro7TW3UShO');
+      let address = provider.resolveName(value);
+      address.then((val) => setResults(val));
     }
   }
 
